@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Progressive Mind — One Stop Software Shop</title>
+<meta name="description" content="Full-stack MERN, Python, DevOps, AI and Agentic AI engineering. One team, from idea to production." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#07080d;
+    --bg-soft:#0c0e16;
+    --card:rgba(255,255,255,.035);
+    --border:rgba(255,255,255,.09);
+    --text:#eef0f6;
+    --muted:#9aa1b4;
+    --brand:#6d5efc;
+    --brand-2:#00d4ff;
+    --brand-3:#ff5ca8;
+    --accent:#39e6a8;
+    --radius:18px;
+    --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);
+    border:1px solid var(--border);border-radius:999px;
+    padding:7px 14px;background:rgba(255,255,255,.03);
+    backdrop-filter:blur(8px);
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1,h2,h3{line-height:1.12;letter-spacing:-.03em;font-weight:800}
+  h2{font-size:clamp(30px,4.4vw,50px)}
+  .lead{color:var(--muted);font-size:clamp(16px,1.6vw,19px);max-width:62ch}
+  .grad{
+    background:linear-gradient(100deg,var(--brand-2),var(--brand) 40%,var(--brand-3));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  /* ---------- background fx ---------- */
+  .fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+  .orb.a{width:620px;height:620px;background:#5b3ef5;top:-220px;left:-140px;animation:float1 18s ease-in-out infinite}
+  .orb.b{width:520px;height:520px;background:#00a2c7;top:180px;right:-180px;animation:float2 22s ease-in-out infinite}
+  .orb.c{width:480px;height:480px;background:#c02c7a;bottom:-200px;left:35%;opacity:.32;animation:float1 26s ease-in-out infinite reverse}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,50px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-70px,40px)}}
+  .grid-fx{
+    position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 20%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 20%,transparent 75%);
+  }
+  .noise{position:absolute;inset:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+  main,header,footer{position:relative;z-index:1}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(7,8,13,.6);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+  header.scrolled{border-color:var(--border);background:rgba(7,8,13,.82)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;font-size:17px}
+  .mark{
+    width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));
+    box-shadow:0 6px 24px rgba(109,94,252,.45);
+  }
+  .mark svg{width:18px;height:18px}
+  .navlinks{display:flex;gap:30px;font-size:14.5px;color:var(--muted);font-weight:500}
+  .navlinks a{position:relative;transition:color .2s}
+  .navlinks a:hover{color:var(--text)}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:linear-gradient(90deg,var(--brand-2),var(--brand-3));transition:width .25s}
+  .navlinks a:hover::after{width:100%}
+  @media(max-width:860px){.navlinks{display:none}}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:13px 24px;border-radius:12px;font-weight:600;font-size:15px;
+    border:1px solid transparent;cursor:pointer;transition:transform .18s,box-shadow .25s,background .25s,border-color .25s;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(120deg,var(--brand),#8b5cf6 45%,var(--brand-2));
+    color:#fff;box-shadow:0 10px 34px -10px rgba(109,94,252,.85);
+    background-size:180% 100%;
+  }
+  .btn-primary:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 16px 44px -12px rgba(109,94,252,1)}
+  .btn-ghost{border-color:var(--border);color:var(--text);background:rgba(255,255,255,.03)}
+  .btn-ghost:hover{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.07);transform:translateY(-2px)}
+  .btn-sm{padding:10px 18px;font-size:14px}
+
+  section{padding:clamp(72px,9vw,120px) 0}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(56px,7vw,90px);padding-bottom:clamp(56px,7vw,90px)}
+  .hero h1{font-size:clamp(42px,7.2vw,84px);margin:26px 0 22px;max-width:15ch}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+  .hero-inner{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  @media(max-width:980px){.hero-inner{grid-template-columns:1fr;gap:44px}}
+
+  .trustline{display:flex;gap:26px;flex-wrap:wrap;margin-top:44px;padding-top:26px;border-top:1px solid var(--border);color:var(--muted);font-size:13.5px}
+  .trustline b{color:var(--text);font-size:22px;font-weight:800;display:block;letter-spacing:-.02em}
+
+  /* terminal card */
+  .term{
+    border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    background:linear-gradient(180deg,rgba(20,22,34,.92),rgba(10,11,18,.94));
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset;
+    font-family:'JetBrains Mono',monospace;font-size:13px;
+    transform:perspective(1400px) rotateY(-7deg) rotateX(3deg);
+    transition:transform .5s ease;
+  }
+  .term:hover{transform:perspective(1400px) rotateY(0deg) rotateX(0deg)}
+  .term-bar{display:flex;align-items:center;gap:7px;padding:12px 15px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.025)}
+  .term-bar i{width:11px;height:11px;border-radius:50%;display:block}
+  .term-bar .t{margin-left:10px;color:var(--muted);font-size:11.5px;letter-spacing:.05em}
+  .term-body{padding:18px 18px 22px;line-height:1.85;color:#cfd4e4}
+  .term-body .c{color:#6b7392}
+  .term-body .k{color:#c084fc}
+  .term-body .s{color:#7ee7c0}
+  .term-body .f{color:#63d5ff}
+  .term-body .n{color:#ffb86c}
+  .caret{display:inline-block;width:8px;height:15px;background:var(--accent);vertical-align:-2px;animation:blink 1.05s steps(1) infinite}
+  @keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+
+  /* ---------- marquee ---------- */
+  .marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;overflow:hidden;background:rgba(255,255,255,.015)}
+  .marquee-track{display:flex;gap:56px;width:max-content;animation:scroll 34s linear infinite}
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .marquee span{color:var(--muted);font-weight:600;font-size:15px;letter-spacing:.02em;white-space:nowrap;display:flex;align-items:center;gap:10px;transition:color .2s}
+  .marquee span:hover{color:var(--text)}
+  .marquee span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--brand-2);opacity:.7}
+
+  /* ---------- section head ---------- */
+  .sec-head{max-width:720px;margin-bottom:56px}
+  .sec-head h2{margin:18px 0 16px}
+
+  /* ---------- services ---------- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .card{
+    position:relative;border:1px solid var(--border);border-radius:var(--radius);
+    padding:30px 28px 32px;background:var(--card);overflow:hidden;
+    transition:transform .3s,border-color .3s,background .3s;
+  }
+  .card::before{
+    content:"";position:absolute;inset:0;opacity:0;transition:opacity .35s;
+    background:radial-gradient(500px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.08),transparent 42%);
+  }
+  .card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.055)}
+  .card:hover::before{opacity:1}
+  .card > *{position:relative}
+  .ico{
+    width:48px;height:48px;border-radius:13px;display:grid;place-items:center;margin-bottom:20px;
+    background:linear-gradient(140deg,rgba(255,255,255,.12),rgba(255,255,255,.03));
+    border:1px solid var(--border);
+  }
+  .ico svg{width:23px;height:23px;stroke-width:1.7}
+  .card h3{font-size:20px;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:15px}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+  .tag{font-size:11.5px;font-weight:600;letter-spacing:.03em;padding:5px 10px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:#c4cadb;font-family:'JetBrains Mono',monospace}
+  .card.feature{grid-column:span 2;background:linear-gradient(130deg,rgba(109,94,252,.16),rgba(0,212,255,.07) 55%,rgba(255,92,168,.09));border-color:rgba(140,120,255,.32)}
+  @media(max-width:980px){.card.feature{grid-column:span 1}}
+  .badge{position:absolute;top:22px;right:22px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0a0b11;background:var(--accent);padding:4px 10px;border-radius:6px}
+
+  /* ---------- process ---------- */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px;counter-reset:s}
+  .step{position:relative;padding-top:30px;border-top:1px solid var(--border)}
+  .step::before{
+    counter-increment:s;content:"0" counter(s);
+    position:absolute;top:-1px;left:0;height:2px;width:44px;background:linear-gradient(90deg,var(--brand-2),var(--brand-3));
+    font-size:0;
+  }
+  .step .num{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--brand-2);font-weight:600;letter-spacing:.12em}
+  .step h3{font-size:18px;margin:12px 0 9px}
+  .step p{color:var(--muted);font-size:14.5px}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  .stat{background:#0a0b12;padding:34px 28px;text-align:center}
+  .stat b{display:block;font-size:clamp(32px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1;margin-bottom:9px}
+  .stat span{color:var(--muted);font-size:13.5px;letter-spacing:.02em}
+
+  /* ---------- testimonials ---------- */
+  .quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+  .quote{border:1px solid var(--border);border-radius:var(--radius);padding:28px;background:var(--card);transition:border-color .3s,transform .3s}
+  .quote:hover{border-color:rgba(255,255,255,.2);transform:translateY(-4px)}
+  .quote p{font-size:15.5px;color:#dfe3ee}
+  .stars{color:#ffc75a;font-size:13px;letter-spacing:3px;margin-bottom:14px}
+  .who{display:flex;align-items:center;gap:12px;margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
+  .av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:14px;color:#0a0b11;background:linear-gradient(135deg,var(--brand-2),var(--accent))}
+  .who small{display:block;color:var(--muted);font-size:12.5px;font-weight:500}
+  .who strong{font-size:14.5px;font-weight:600}
+
+  /* ---------- CTA ---------- */
+  .cta-shell{
+    border:1px solid rgba(140,120,255,.3);border-radius:26px;
+    background:
+      radial-gradient(700px circle at 15% 0%,rgba(109,94,252,.22),transparent 60%),
+      radial-gradient(600px circle at 90% 100%,rgba(0,212,255,.16),transparent 60%),
+      linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    padding:clamp(34px,5vw,60px);
+    display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;
+    box-shadow:0 40px 100px -40px rgba(109,94,252,.55);
+  }
+  @media(max-width:900px){.cta-shell{grid-template-columns:1fr;gap:36px}}
+  .cta-shell h2{margin:16px 0 16px}
+  .bullets{list-style:none;margin-top:28px;display:grid;gap:13px}
+  .bullets li{display:flex;gap:11px;align-items:flex-start;color:var(--muted);font-size:15px}
+  .bullets svg{flex:none;width:19px;height:19px;margin-top:2px;color:var(--accent)}
+  form{display:grid;gap:15px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+  @media(max-width:520px){.row{grid-template-columns:1fr}}
+  .field{display:grid;gap:7px}
+  label{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  input,select,textarea{
+    width:100%;padding:13px 15px;border-radius:11px;
+    background:rgba(6,7,12,.62);border:1px solid var(--border);color:var(--text);
+    font-family:inherit;font-size:15px;transition:border-color .2s,box-shadow .2s,background .2s;
+  }
+  input::placeholder,textarea::placeholder{color:#5f667c}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(140,120,255,.75);box-shadow:0 0 0 4px rgba(109,94,252,.16);background:rgba(6,7,12,.9)}
+  select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%239aa1b4' stroke-width='2'%3E%3Cpath d='M3 5l4 4 4-4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center}
+  textarea{resize:vertical;min-height:96px}
+  form .btn{width:100%;padding:15px;font-size:15.5px}
+  .fineprint{color:#6b7288;font-size:12.5px;text-align:center}
+  .success{
+    display:none;text-align:center;padding:40px 24px;border:1px solid rgba(57,230,168,.35);
+    border-radius:16px;background:rgba(57,230,168,.07);
+  }
+  .success.on{display:block;animation:pop .4s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+  .success .tick{width:52px;height:52px;border-radius:50%;background:var(--accent);display:grid;place-items:center;margin:0 auto 18px}
+  .success .tick svg{width:26px;height:26px;color:#07080d;stroke-width:3}
+  .success h3{font-size:22px;margin-bottom:9px}
+  .success p{color:var(--muted);font-size:15px}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--border);padding:44px 0 40px;margin-top:20px}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+  .foot-links a:hover{color:var(--text)}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .orb,.marquee-track,.caret,.eyebrow .dot{animation:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="fx" aria-hidden="true">
+  <div class="grid-fx"></div>
+  <div class="orb a"></div>
+  <div class="orb b"></div>
+  <div class="orb c"></div>
+  <div class="noise"></div>
+</div>
+
+<header id="top">
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="#top">
+        <span class="mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6L3 12l5 6M16 6l5 6-5 6M13.5 4l-3 16"/></svg>
+        </span>
+        Progressive Mind
+      </a>
+      <div class="navlinks">
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#results">Results</a>
+        <a href="#clients">Clients</a>
+      </div>
+      <a class="btn btn-primary btn-sm" href="#start">Start a project</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow reveal"><span class="dot"></span> Available for Q3 engagements</span>
+        <h1 class="reveal">Your entire <span class="grad">engineering team</span>, in one shop.</h1>
+        <p class="lead reveal">Full-stack MERN, Python backends, airtight DevOps, and production-grade AI &amp; agentic systems. One senior team that ships from blank repo to live traffic — no handoffs, no agency theatre.</p>
+        <div class="hero-cta reveal">
+          <a class="btn btn-primary" href="#start">
+            Book a free scoping call
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#services">Explore capabilities</a>
+        </div>
+        <div class="trustline reveal">
+          <div><b>60+</b> products shipped</div>
+          <div><b>4.9/5</b> client rating</div>
+          <div><b>&lt;2 wks</b> to first deploy</div>
+          <div><b>24/7</b> on-call support</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="term">
+          <div class="term-bar">
+            <i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>
+            <span class="t">progressive-mind — deploy.ts</span>
+          </div>
+          <div class="term-body">
+<span class="c">// one team. one pipeline. zero handoffs.</span><br/>
+<span class="k">const</span> <span class="f">team</span> = <span class="f">assemble</span>({<br/>
+&nbsp;&nbsp;web:&nbsp;&nbsp;&nbsp;&nbsp;[<span class="s">'react'</span>, <span class="s">'next'</span>, <span class="s">'node'</span>],<br/>
+&nbsp;&nbsp;data:&nbsp;&nbsp;&nbsp;[<span class="s">'python'</span>, <span class="s">'fastapi'</span>, <span class="s">'postgres'</span>],<br/>
+&nbsp;&nbsp;cloud:&nbsp;&nbsp;[<span class="s">'aws'</span>, <span class="s">'k8s'</span>, <span class="s">'terraform'</span>],<br/>
+&nbsp;&nbsp;ai:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[<span class="s">'llm'</span>, <span class="s">'rag'</span>, <span class="s">'agents'</span>],<br/>
+});<br/><br/>
+<span class="k">await</span> team.<span class="f">ship</span>(idea, { <br/>
+&nbsp;&nbsp;quality: <span class="n">'production'</span>,<br/>
+&nbsp;&nbsp;weeks: <span class="n">6</span>,<br/>
+});<br/><br/>
+<span class="c">→ build passed</span><br/>
+<span class="c">→ 214 tests green</span><br/>
+<span class="s">✓ deployed to prod</span> <span class="caret"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>React</span><span>Node.js</span><span>MongoDB</span><span>Express</span><span>Next.js</span><span>TypeScript</span><span>Python</span><span>FastAPI</span><span>Django</span><span>PostgreSQL</span><span>Docker</span><span>Kubernetes</span><span>Terraform</span><span>AWS</span><span>GCP</span><span>LangGraph</span><span>OpenAI</span><span>Claude</span><span>Vector DBs</span><span>CI/CD</span>
+      <span>React</span><span>Node.js</span><span>MongoDB</span><span>Express</span><span>Next.js</span><span>TypeScript</span><span>Python</span><span>FastAPI</span><span>Django</span><span>PostgreSQL</span><span>Docker</span><span>Kubernetes</span><span>Terraform</span><span>AWS</span><span>GCP</span><span>LangGraph</span><span>OpenAI</span><span>Claude</span><span>Vector DBs</span><span>CI/CD</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">What we do</span>
+        <h2>Four disciplines.<br/><span class="grad">One accountable team.</span></h2>
+        <p class="lead">Most companies stitch together a frontend shop, a backend contractor, a DevOps freelancer and an "AI consultant." We do all of it under one roof — and one invoice.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#63d5ff" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v13H3zM8 21h8M12 17v4"/><path d="M7 9l2 2-2 2M13 13h4"/></svg></div>
+          <h3>Full-Stack MERN</h3>
+          <p>Fast, beautiful web products built on React, Node and Mongo — component systems, real-time features, auth, payments and dashboards that hold up under real users.</p>
+          <div class="tags"><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Node</span><span class="tag">MongoDB</span><span class="tag">GraphQL</span></div>
+        </article>
+
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7c0-2 2-3 5-3h1v3H7"/><path d="M20 17c0 2-2 3-5 3h-1v-3h3"/><rect x="4" y="7" width="16" height="10" rx="3"/><circle cx="8.5" cy="12" r=".8" fill="#ffd166"/><circle cx="15.5" cy="12" r=".8" fill="#ffd166"/></svg></div>
+          <h3>Python &amp; Data</h3>
+          <p>APIs, ETL pipelines, scrapers and analytics engines in FastAPI and Django. Typed, tested, observable — the boring reliability your product quietly depends on.</p>
+          <div class="tags"><span class="tag">FastAPI</span><span class="tag">Django</span><span class="tag">Celery</span><span class="tag">Postgres</span><span class="tag">Pandas</span></div>
+        </article>
+
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#39e6a8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11l8-4.5M12 11v9M12 11L4 6.5"/></svg></div>
+          <h3>DevOps &amp; Cloud</h3>
+          <p>Infrastructure as code, containerised deploys, blue-green releases and dashboards that page a human before your customers notice. Cut cloud spend while you're at it.</p>
+          <div class="tags"><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span><span class="tag">AWS</span><span class="tag">CI/CD</span></div>
+        </article>
+
+        <article class="card feature reveal">
+          <span class="badge">Flagship</span>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#c9a3ff" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5L19 19M19 5l-2.5 2.5M7.5 16.5L5 19"/></svg></div>
+          <h3>AI &amp; Agentic Systems</h3>
+          <p>Beyond the chatbot demo. We build retrieval pipelines over your real data, multi-step agents that call your tools and APIs, evaluation harnesses so quality is measured not guessed, and guardrails that keep it all safe in production.</p>
+          <div class="tags"><span class="tag">LLM apps</span><span class="tag">RAG</span><span class="tag">Agent orchestration</span><span class="tag">Evals</span><span class="tag">Fine-tuning</span><span class="tag">MCP</span><span class="tag">Vector search</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">How we work</span>
+        <h2>Shipping beats <span class="grad">slide decks.</span></h2>
+        <p class="lead">A tight four-step loop. You see working software in week one, and every week after.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><span class="num">STEP 01</span><h3>Scope</h3><p>A free 45-minute call. We map the problem, the constraints and the fastest credible path to value — then send a fixed plan.</p></div>
+        <div class="step reveal"><span class="num">STEP 02</span><h3>Architect</h3><p>Data model, infrastructure, and a milestone roadmap. No surprise rewrites at month three because someone skipped this part.</p></div>
+        <div class="step reveal"><span class="num">STEP 03</span><h3>Build</h3><p>Weekly demos on a live staging URL. Shared Slack channel, visible board, code in your repo from day one.</p></div>
+        <div class="step reveal"><span class="num">STEP 04</span><h3>Scale</h3><p>Hardening, monitoring, load testing and handover docs. Stay on retainer or take the keys — your call, no lock-in.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="results" style="padding-top:0">
+    <div class="wrap reveal">
+      <div class="stats">
+        <div class="stat"><b class="grad">60+</b><span>Products delivered</span></div>
+        <div class="stat"><b class="grad">99.98%</b><span>Average uptime</span></div>
+        <div class="stat"><b class="grad">42%</b><span>Avg. cloud cost saved</span></div>
+        <div class="stat"><b class="grad">6 wks</b><span>Typical MVP timeline</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="clients" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Clients</span>
+        <h2>Teams that stopped <span class="grad">juggling vendors.</span></h2>
+      </div>
+      <div class="quotes">
+        <div class="quote reveal">
+          <div class="stars">★★★★★</div>
+          <p>"We had three agencies and none of them owned the outcome. Progressive Mind replaced all of them and shipped our marketplace in seven weeks."</p>
+          <div class="who"><span class="av">AR</span><div><strong>Ayesha Rahman</strong><small>CTO, Verdant Commerce</small></div></div>
+        </div>
+        <div class="quote reveal">
+          <div class="stars">★★★★★</div>
+          <p>"Their agent pipeline now handles 70% of our support tickets end-to-end. The eval suite they built is why we actually trust it in production."</p>
+          <div class="who"><span class="av">DK</span><div><strong>Daniel Koch</strong><small>Head of Ops, Northbeam SaaS</small></div></div>
+        </div>
+        <div class="quote reveal">
+          <div class="stars">★★★★★</div>
+          <p>"They rebuilt our deployment pipeline in two weeks and cut the AWS bill by 46%. Releases went from monthly and scary to daily and boring."</p>
+          <div class="who"><span class="av">PM</span><div><strong>Priya Menon</strong><small>VP Engineering, Loopcart</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="start" style="padding-bottom:clamp(60px,7vw,90px)">
+    <div class="wrap">
+      <div class="cta-shell reveal">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> 2 slots open this month</span>
+          <h2>Let's build the<br/><span class="grad">thing you keep postponing.</span></h2>
+          <p class="lead">Tell us what you're working on. You'll get a real engineer's reply within one business day — with a rough scope, timeline and honest opinion. No sales sequence.</p>
+          <ul class="bullets">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Free 45-minute technical scoping call</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> Fixed-scope proposal, no hourly surprises</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> You own the code and the cloud account</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg> NDA signed before the first call if you need it</li>
+          </ul>
+        </div>
+
+        <div>
+          <form id="contact" novalidate>
+            <div class="row">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Jane Doe" required />
+              </div>
+              <div class="field">
+                <label for="email">Work email</label>
+                <input id="email" name="email" type="email" placeholder="jane@company.com" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field">
+                <label for="service">What do you need?</label>
+                <select id="service" name="service">
+                  <option>Full-stack MERN build</option>
+                  <option>Python / backend &amp; data</option>
+                  <option>DevOps &amp; cloud infrastructure</option>
+                  <option>AI &amp; agentic systems</option>
+                  <option>Not sure yet — help me scope it</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="budget">Budget range</label>
+                <select id="budget" name="budget">
+                  <option>Under $10k</option>
+                  <option>$10k – $30k</option>
+                  <option>$30k – $75k</option>
+                  <option>$75k+</option>
+                  <option>Ongoing retainer</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="msg">Project details</label>
+              <textarea id="msg" name="msg" placeholder="A sentence or two about what you're building, and when you'd like it live."></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">
+              Send project brief
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <p class="fineprint">We reply within 1 business day. Your details stay with us — always.</p>
+          </form>
+
+          <div class="success" id="success" role="status" aria-live="polite">
+            <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <h3>Brief received</h3>
+            <p>Thanks — we've got it. An engineer will read this personally and get back to you within one business day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6L3 12l5 6M16 6l5 6-5 6M13.5 4l-3 16"/></svg></span>
+      Progressive Mind
+    </a>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#clients">Clients</a>
+      <a href="#start">Contact</a>
+    </div>
+    <div>© 2026 Progressive Mind. Built, not assembled.</div>
+  </div>
+</footer>
+
+<script>
+  // sticky header state
+  const header = document.querySelector('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = Math.min(i * 70, 280) + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // cursor-follow glow on cards
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+    });
+  });
+
+  // CTA form — front-end only, submits nowhere
+  const form = document.getElementById('contact');
+  const success = document.getElementById('success');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    let ok = true;
+    [name, email].forEach(f => {
+      const bad = !f.value.trim() || (f.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value));
+      f.style.borderColor = bad ? '#ff5f7a' : '';
+      if (bad) ok = false;
+    });
+    if (!ok) return;
+
+    const btn = form.querySelector('button');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    setTimeout(() => {
+      form.style.display = 'none';
+      success.classList.add('on');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 700);
+  });
+</script>
+</body>
+</html>
